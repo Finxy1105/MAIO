@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import os
 import pytest
 from fastapi.testclient import TestClient
@@ -36,7 +36,7 @@ def test_predict_shapes():
         assert isinstance(body.get("prediction"), (int, float))
 
 
-=======
+
 import os
 import pytest
 from fastapi.testclient import TestClient
@@ -72,6 +72,3 @@ def test_predict_shapes():
     if r.status_code == 200:
         body = r.json()
         assert isinstance(body.get("prediction"), (int, float))
-
-
->>>>>>> 6df35c2 (Add initial implementation of diabetes prediction service with FastAPI, Docker support, and CI/CD workflows)

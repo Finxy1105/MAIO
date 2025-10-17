@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ValidationError
@@ -67,7 +67,7 @@ async def predict(payload: Features):
 
 
 
-=======
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ValidationError
@@ -134,9 +134,3 @@ async def predict(payload: Features):
     pred = float(PIPELINE.predict(data)[0])
     return {"prediction": pred}
 
-
-<<<<<<< HEAD
->>>>>>> 6df35c2 (Add initial implementation of diabetes prediction service with FastAPI, Docker support, and CI/CD workflows)
-=======
-
->>>>>>> 2ea4819 (CI check)

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 FROM python:3.11-slim as base
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -25,7 +24,6 @@ CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000"]
 
 
 
-=======
 FROM python:3.11-slim as base
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -49,10 +47,3 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s CMD curl -f http://localhost:8000/health || exit 1
 
 CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000"]
-
-
-<<<<<<< HEAD
->>>>>>> 6df35c2 (Add initial implementation of diabetes prediction service with FastAPI, Docker support, and CI/CD workflows)
-=======
-
->>>>>>> 2ea4819 (CI check)
