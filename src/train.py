@@ -1,6 +1,7 @@
 from sklearn.datasets import load_diabetes
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+<<<<<<< HEAD
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
@@ -8,6 +9,14 @@ from sklearn.metrics import mean_squared_error
 import joblib, json, os, numpy as np, random, argparse
 
 def train(model_version: str = "v0.1", seed: int = 42, model_type: str = "lin"):
+=======
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+import joblib, json, os, numpy as np, random
+
+def train(model_version: str = "v0.1", seed: int = 8):
+>>>>>>> 6df35c2 (Add initial implementation of diabetes prediction service with FastAPI, Docker support, and CI/CD workflows)
     random.seed(seed)
     np.random.seed(seed)
     Xy = load_diabetes(as_frame=True)
@@ -16,6 +25,7 @@ def train(model_version: str = "v0.1", seed: int = 42, model_type: str = "lin"):
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=seed
     )
+<<<<<<< HEAD
     if model_type == "lin":
         estimator = LinearRegression()
         steps = [("scaler", StandardScaler()), ("model", estimator)]
@@ -29,12 +39,16 @@ def train(model_version: str = "v0.1", seed: int = 42, model_type: str = "lin"):
         raise ValueError(f"Unsupported model_type: {model_type}")
 
     pipe = Pipeline(steps)
+=======
+    pipe = Pipeline([("scaler", StandardScaler()), ("lr", LinearRegression())])
+>>>>>>> 6df35c2 (Add initial implementation of diabetes prediction service with FastAPI, Docker support, and CI/CD workflows)
     pipe.fit(X_train, y_train)
     preds = pipe.predict(X_test)
     rmse = mean_squared_error(y_test, preds, squared=False)
     os.makedirs("models", exist_ok=True)
     model_path = os.path.join("models", f"model-{model_version}.pkl")
     metrics_path = os.path.join("models", f"metrics-{model_version}.json")
+<<<<<<< HEAD
     joblib.dump({"pipeline": pipe, "model_version": model_version, "model_type": model_type}, model_path)
     with open(metrics_path, "w") as f:
         json.dump({"rmse": rmse, "seed": seed, "model_version": model_version, "model_type": model_type}, f)
@@ -51,3 +65,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+=======
+    joblib.dump({"pipeline": pipe, "model_version": model_version}, model_path)
+    with open(metrics_path, "w") as f:
+        json.dump({"rmse": rmse, "seed": seed, "model_version": model_version}, f)
+if __name__ == "__main__":
+    train()
+>>>>>>> 6df35c2 (Add initial implementation of diabetes prediction service with FastAPI, Docker support, and CI/CD workflows)

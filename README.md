@@ -63,6 +63,7 @@ docker run --rm -p 8000:8000 triage-ml:v0.1
 - 打 Tag：`git tag v0.1 && git push origin v0.1`
 - GitHub Actions 将构建镜像、冒烟测试、推送到 GHCR，并创建 Release，镜像名：`ghcr.io/<org>/<repo>:v0.1`
 
+<<<<<<< HEAD
 ### v0.2 使用
 - 训练：
 ```bash
@@ -75,6 +76,8 @@ git push origin v0.2
 ```
 发布工作流会根据标签自动选择模型类型（v0.2 默认 ridge），并把 `models/metrics-v0.2.json` 内容附到 Release。
 
+=======
+>>>>>>> 6df35c2 (Add initial implementation of diabetes prediction service with FastAPI, Docker support, and CI/CD workflows)
 ## CI/CD (GitHub Actions)
 - PR/push: lint, tests, training smoke, artifact upload
 - Tag `v*`: build image, smoke test, push to GHCR, create GitHub Release with metrics and CHANGELOG
