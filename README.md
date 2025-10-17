@@ -1,13 +1,71 @@
-# MAIO
-Virtual Diabetes Clinic Triage
+# Virtual Diabetes Clinic Triage – ML Service
 
-fastapi==0.95.2
-uvicorn==0.22.0
-scikit-learn==1.3.2
-pandas==2.2.2
-joblib==1.3.2
-pytest==7.4.0
-requests==2.31.0
-gunicorn==22.1.0
-black==24.3.0
-flake8==6.1.0
+This repo contains a small ML service for a virtual diabetes clinic triage. It trains a baseline regression model on the open scikit-learn Diabetes dataset and serves predictions via an HTTP API.
+
+## Features (v0.1)
+- StandardScaler + LinearRegression with fixed seed
+- RMSE reported on a held-out split and saved to `models/metrics-v0.1.json`
+- FastAPI service with `/health` and `/predict`
+- Docker image with baked model
+- GitHub Actions CI (lint, tests, training artifact) and release workflow scaffold
+
+## Setup
+```bash
+python -m venv .venv
+. .venv/Scripts/activate  # Windows PowerShell: . .venv/Scripts/Activate.ps1
+pip install -r requirements.txt
+```
+
+## Train (v0.1)
+```bash
+python -m src.train
+```
+Artifacts:
+- `models/model-v0.1.pkl`
+- `models/metrics-v0.1.json` (example: `{ "rmse": 53.2, "seed": 42, "model_version": "v0.1" }`)
+
+## Run API locally
+```bash
+uvicorn src.api:app --host 0.0.0.0 --port 8000
+```
+
+### Health
+```bash
+curl http://localhost:8000/health
+```
+Response:
+```json
+{"status":"ok","model_version":"v0.1"}
+```
+
+### Predict
+Payload uses scikit-learn Diabetes feature names (standardized values expected):
+```bash
+curl -X POST http://localhost:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{
+    "age": 0.02, "sex": -0.044, "bmi": 0.06, "bp": -0.03,
+    "s1": -0.02, "s2": 0.03, "s3": -0.02, "s4": 0.02, "s5": 0.02, "s6": -0.001
+  }'
+```
+Response:
+```json
+{"prediction": 152.34}
+```
+
+## Docker
+```bash
+docker build -t triage-ml:v0.1 .
+docker run --rm -p 8000:8000 triage-ml:v0.1
+```
+
+## 发布
+- 打 Tag：`git tag v0.1 && git push origin v0.1`
+- GitHub Actions 将构建镜像、冒烟测试、推送到 GHCR，并创建 Release，镜像名：`ghcr.io/<org>/<repo>:v0.1`
+
+## CI/CD (GitHub Actions)
+- PR/push: lint, tests, training smoke, artifact upload
+- Tag `v*`: build image, smoke test, push to GHCR, create GitHub Release with metrics and CHANGELOG
+
+## Versioning
+See `CHANGELOG.md`.
