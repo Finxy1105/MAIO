@@ -63,6 +63,18 @@ docker run --rm -p 8000:8000 triage-ml:v0.1
 - 打 Tag：`git tag v0.1 && git push origin v0.1`
 - GitHub Actions 将构建镜像、冒烟测试、推送到 GHCR，并创建 Release，镜像名：`ghcr.io/<org>/<repo>:v0.1`
 
+### v0.2 使用
+- 训练：
+```bash
+python -m src.train --version v0.2 --model ridge --seed 42
+```
+- 打包与发布：
+```bash
+git tag v0.2
+git push origin v0.2
+```
+发布工作流会根据标签自动选择模型类型（v0.2 默认 ridge），并把 `models/metrics-v0.2.json` 内容附到 Release。
+
 ## CI/CD (GitHub Actions)
 - PR/push: lint, tests, training smoke, artifact upload
 - Tag `v*`: build image, smoke test, push to GHCR, create GitHub Release with metrics and CHANGELOG
