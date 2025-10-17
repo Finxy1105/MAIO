@@ -51,4 +51,8 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s CMD curl -f http://lo
 CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000"]
 
 
+<<<<<<< HEAD
 >>>>>>> 6df35c2 (Add initial implementation of diabetes prediction service with FastAPI, Docker support, and CI/CD workflows)
+=======
+
+>>>>>>> 2ea4819 (CI check)

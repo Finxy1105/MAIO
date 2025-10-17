@@ -39,4 +39,8 @@ def test_train_creates_artifacts(tmp_path):
         os.chdir(cwd)
 
 
+<<<<<<< HEAD
 >>>>>>> 6df35c2 (Add initial implementation of diabetes prediction service with FastAPI, Docker support, and CI/CD workflows)
+=======
+
+>>>>>>> 2ea4819 (CI check)
